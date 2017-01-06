@@ -9,7 +9,6 @@ from argparse import RawTextHelpFormatter
 import logging
 import smtplib
 from email.mime.text import MIMEText
-from zbxsend import Metric, send_to_zabbix
 
 # Settings
 from conf import conf
