@@ -33,12 +33,6 @@ logging.basicConfig(
                    )
 logging.info('sys.argv: ' + repr(sys.argv))
 
-# Handle incorrect call
-# zbxsend is broken in 3.x (https://github.com/alledm/zbxsend/commit/a485c97a4f0c2fa46fe3192da9979cbeade752b4)
-if sys.version_info >= (3,):
-    logging.warn("Need python version 2.x to run")
-    quit(1)
-
 parser = argparse.ArgumentParser(
             formatter_class=RawTextHelpFormatter,
             description=
@@ -60,9 +54,14 @@ args = parser.parse_args()
 
 msg = sys.stdin.read()
 
-metrics = [ Metric(conf['hostname'], "{0}.custommessage".format(conf['type']), msg) ]
+metrics = conf['hostname'] + " " + "{0}.custommessage".format(conf['type']) + " " + msg
+
 logging.info( "sending custom message to '{0}': '{1}'".format(conf['zabbix_server'], metrics) )
-send_to_zabbix(metrics, conf['zabbix_server'], 10051, 20)
+zs = 'zabbix_sender -vv -z ' + "{0}".format(conf['zabbix_server']) + ' -i -'
+p = subprocess.Popen(zs.split(), stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+stdoutdata, stderrdata = p.communicate(metrics)
+logging.info( stdoutdata )
+logging.debug( stderrdata )
 
 if args.recipients:
     sendmail(msg, args.recipients)
