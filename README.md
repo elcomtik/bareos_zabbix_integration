@@ -24,8 +24,7 @@ Triggers
 Installation
 ------------
 
-* install zbxsend python module
-	* `pip install zbxsend` or `pypi-install zbxsend` or `any command related to your distro`
+* install zabbix-sender utility
 * `cd /etc/bareos` or `cd /etc/bacula`
 * `git clone https://github.com/paleg/bareos_zabbix_integration.git`
 * Make sure that zabbix user can launch bconsole and get output of 'show jobs' command (add 'zabbix' user to 'bareos/bacula' group)
