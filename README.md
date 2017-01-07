@@ -26,7 +26,7 @@ Installation
 
 * install zabbix-sender utility
 * `cd /etc/bareos` or `cd /etc/bacula`
-* `git clone https://github.com/paleg/bareos_zabbix_integration.git`
+* `git clone https://github.com/elcomtik/bareos_zabbix_integration.git`
 * Make sure that zabbix user can launch bconsole and get output of 'show jobs' command (add 'zabbix' user to 'bareos/bacula' group)
 * Tweak conf.py:
     * server type (`bareos` or `bacula`)
